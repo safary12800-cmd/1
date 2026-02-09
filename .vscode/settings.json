@@ -1,0 +1,11 @@
+{
+    "python.pythonPath": "${workspaceFolder}/myenv/bin/python",
+    "python.defaultInterpreterPath": "${workspaceFolder}/myenv/bin/python",
+    "python.analysis.extraPaths": [
+        "./myenv/lib/python3.13/site-packages"
+    ],
+    "python.analysis.typeCheckingMode": "basic"
+}
+{
+    "python-envs.pythonProjects": []
+}
