@@ -34,6 +34,9 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/venv,dotenv,linux
-
+# Python cache
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Local virtual env
+myenv/
