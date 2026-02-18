@@ -20,6 +20,5 @@ async def profile_handler(msg: Message, db):
         f"Ismingiz: {data['name']}\n"
         f"Familyangiz: {data['surename']}\n"
         f"Yoshingiz: {data['age']}\n"
-        f"Telefon raqam: {data['phone']}\n"
-        f"Mansabingiz: {data['role']}"
+        f"Telefon raqam: {data['phone']}"
     )

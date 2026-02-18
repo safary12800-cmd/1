@@ -121,7 +121,7 @@ class Database:
 
     async def user_profile(self, telegram_id):
         query = """
-        SELECT name, surename, age, phone, role
+        SELECT name, surename, age, phone
         FROM users
         WHERE telegram_id = $1;
         """

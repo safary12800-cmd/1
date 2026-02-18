@@ -32,9 +32,5 @@ class Config:
     DB_PASSWORD: str = os.getenv("DB_PASSWORD") or ""
     ADMIN_ID: Optional[int] = _parse_int_env("ADMIN_ID")
 
-    @property
-    def TOKEN(self) -> str:
-        return self.BOT_TOKEN
-
 
 config = Config()

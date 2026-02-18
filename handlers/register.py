@@ -1,9 +1,7 @@
 from aiogram import F, Router
-from aiogram.exceptions import TelegramAPIError
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from config import config
 from keyboards.reply import register_phone_reply, register_reply, start_reply
 from states.register import RegisterState
 
@@ -74,7 +72,7 @@ async def register_age(msg: Message, state: FSMContext):
 
     await state.update_data(age=msg.text)
     await msg.answer(
-        "Telefon raqamingizni yuboring:",
+        "Telefon raqamingizni  kiriting (masalan: +998901234567):",
         reply_markup=register_phone_reply(),
     )
     await state.set_state(RegisterState.number)
@@ -82,16 +80,12 @@ async def register_age(msg: Message, state: FSMContext):
 
 @router.message(RegisterState.number)
 async def register_phone(msg: Message, state: FSMContext, db):
-    raw_phone = ""
-    if msg.contact and msg.contact.phone_number:
-        raw_phone = msg.contact.phone_number
-    elif msg.text:
-        raw_phone = msg.text
+    raw_phone = msg.text or ""
 
     phone = _normalize_phone(raw_phone)
     if not _is_valid_phone(phone):
         await msg.answer(
-            "Telefon raqam noto'g'ri. Qayta yuboring.",
+            "Telefon raqam noto'g'ri. Qo'lda qayta kiriting (masalan: +998901234567).",
             reply_markup=register_phone_reply(),
         )
         return
@@ -116,7 +110,6 @@ async def register_phone(msg: Message, state: FSMContext, db):
             f"Familyangiz: {data['surename']}\n"
             f"Yoshingiz: {data['age']}\n"
             f"Raqamingiz: {data['number']}\n"
-            "Rolingiz: buyurtmachi\n"
         ),
         reply_markup=start_reply(),
     )
