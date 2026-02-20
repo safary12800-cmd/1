@@ -90,7 +90,7 @@ async def register_number(msg: Message, state: FSMContext, db):
 
     if not _PHONE_PATTERN.fullmatch(phone):
         await msg.answer(
-            "Telefon raqam noto'g'ri. Masalan: +998901234567",
+            "Telefon raqamingiz notogri. Masalan: +998901234567",
             reply_markup=phone_request_reply(),
         )
         return
@@ -114,7 +114,7 @@ async def register_number(msg: Message, state: FSMContext, db):
             f"Familiya: {data['surename']}\n"
             f"Yosh: {data['age']}\n"
             f"Telefon: {data['number']}"
-            "\nRol: user"
+            "\nRol: Foydalanuvchi"
         ),
         reply_markup=start_reply(),
     )

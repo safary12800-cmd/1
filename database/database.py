@@ -33,18 +33,24 @@ class Database:
             surename TEXT NOT NULL,
             age INTEGER NOT NULL,
             phone TEXT NOT NULL,
-            role TEXT NOT NULL DEFAULT '',
+            role TEXT NOT NULL DEFAULT 'user',
             created_at TIMESTAMP DEFAULT NOW()
         )
         """
 
-        alter_query = """
+        add_role_column_query = """
         ALTER TABLE users
         ADD COLUMN IF NOT EXISTS role TEXT NOT NULL DEFAULT 'user'
         """
 
+        set_role_default_query = """
+        ALTER TABLE users
+        ALTER COLUMN role SET DEFAULT 'user'
+        """
+
         await pool.execute(create_query)
-        await pool.execute(alter_query)
+        await pool.execute(add_role_column_query)
+        await pool.execute(set_role_default_query)
 
     async def add_user(
         self,
@@ -55,10 +61,10 @@ class Database:
         phone: str,
     ):
         query = """
-        INSERT INTO users (telegram_id, name, surename, age, phone)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO users (telegram_id, name, surename, age, phone, role)
+        VALUES ($1, $2, $3, $4, $5, $6)
         """
-        await self._pool().execute(query, telegram_id, name, surename, int(age), phone)
+        await self._pool().execute(query, telegram_id, name, surename, int(age), phone, "user")
 
     async def is_user_exists(self, telegram_id: int) -> bool:
         query = """
@@ -75,3 +81,6 @@ class Database:
         WHERE telegram_id = $1
         """
         return await self._pool().fetchrow(query, telegram_id)
+    async def get_user_role(self,telegram_id):
+        query = "SELECT role FROM users WHERE telegram_id=$1"
+        return await self._pool().fetchval(query, telegram_id)

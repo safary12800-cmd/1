@@ -31,6 +31,5 @@ async def profile_handler(msg: Message, db):
             f"Familiya: {user['surename']}\n"
             f"Yosh: {user['age']}\n"
             f"Telefon: {user['phone']}\n"
-            f"Rol: {user['role']}"
         )
     )
