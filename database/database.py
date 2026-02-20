@@ -77,6 +77,11 @@ class Database:
         await pool.execute(normalize_roles_query)
         await pool.execute(drop_role_check_query)
         await pool.execute(add_role_check_query)
+        if config.ADMIN_ID is not None:
+            await pool.execute(
+                "UPDATE users SET role = 'admin' WHERE telegram_id = $1",
+                config.ADMIN_ID,
+            )
 
     async def add_user(
         self,
@@ -86,11 +91,12 @@ class Database:
         age: int,
         phone: str,
     ):
+        role = "admin" if config.ADMIN_ID is not None and telegram_id == config.ADMIN_ID else "user"
         query = """
         INSERT INTO users (telegram_id, name, surename, age, phone, role)
         VALUES ($1, $2, $3, $4, $5, $6)
         """
-        await self._pool().execute(query, telegram_id, name, surename, int(age), phone, "user")
+        await self._pool().execute(query, telegram_id, name, surename, int(age), phone, role)
 
     async def is_user_exists(self, telegram_id: int) -> bool:
         query = """

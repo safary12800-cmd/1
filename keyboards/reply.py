@@ -34,7 +34,7 @@ def phone_request_reply() -> ReplyKeyboardMarkup:
         resize_keyboard=True,
         one_time_keyboard=True,
     )
-def start_admin() -> ReplyKeyboardMarkup:
+def start_admin():
     return ReplyKeyboardMarkup(
         keyboard=[
             [KeyboardButton(text="Register")]

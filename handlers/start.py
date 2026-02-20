@@ -2,14 +2,18 @@ from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
-from keyboards.reply import register_reply, start_reply
-from keyboards.reply import start_reply,register_reply,start_reply_admin
 from filtr.filtr import RoleFilter
+from keyboards.reply import register_reply, start_reply, start_reply_admin
+
 router = Router()
 
-@router.message(CommandStart(),RoleFilter("Admin"))
-async def start_handler_admin(msg:Message):
-    await msg.answer(f'Assalomu Alaykum admin,Botga xush kelibsiz.\nAdmin panel',reply_markup=start_reply_admin())
+
+@router.message(CommandStart(), RoleFilter("admin"))
+async def start_handler_admin(msg: Message):
+    await msg.answer(
+        "Assalomu alaykum admin, botga xush kelibsiz.\nAdmin panel",
+        reply_markup=start_reply_admin(),
+    )
 
    
 
