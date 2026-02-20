@@ -48,9 +48,35 @@ class Database:
         ALTER COLUMN role SET DEFAULT 'user'
         """
 
+        normalize_roles_query = """
+        UPDATE users
+        SET role = CASE
+            WHEN role IS NULL OR BTRIM(role) = '' THEN 'user'
+            WHEN LOWER(role) = 'buyurtmachi' THEN 'user'
+            WHEN LOWER(role) = 'admin' THEN 'admin'
+            WHEN LOWER(role) = 'sotuvchi' THEN 'sotuvchi'
+            WHEN LOWER(role) = 'user' THEN 'user'
+            ELSE 'user'
+        END
+        """
+
+        drop_role_check_query = """
+        ALTER TABLE users
+        DROP CONSTRAINT IF EXISTS users_role_check
+        """
+
+        add_role_check_query = """
+        ALTER TABLE users
+        ADD CONSTRAINT users_role_check
+        CHECK (role IN ('admin', 'sotuvchi', 'user'))
+        """
+
         await pool.execute(create_query)
         await pool.execute(add_role_column_query)
         await pool.execute(set_role_default_query)
+        await pool.execute(normalize_roles_query)
+        await pool.execute(drop_role_check_query)
+        await pool.execute(add_role_check_query)
 
     async def add_user(
         self,
