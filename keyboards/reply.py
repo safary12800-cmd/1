@@ -46,8 +46,7 @@ def start_reply_admin():
 
     return ReplyKeyboardMarkup(
         keyboard=[
-            [KeyboardButton(text="Register")],
-            [KeyboardButton(text="Mahsulotlar"),KeyboardButton(text="Mening buyurtmalarim")],
+            [KeyboardButton(text="Yonalishlar"),KeyboardButton(text="Mening buyurtmalarim")],
             [KeyboardButton(text="Profile"),KeyboardButton(text="Admin panel")]
         ],
         resize_keyboard=True
@@ -60,7 +59,7 @@ def admin_panel_menu():
         keyboard=[
             [KeyboardButton(text="➕ Mahsulot qo‘shish")],
             [KeyboardButton(text="➕ Mahsulot qo‘shish")],
-            [KeyboardButton(text="📋 Mahsulotlar(Admin)")],
+            [KeyboardButton(text="Yonalishlar(Admin)")],
             [KeyboardButton(text="👥 Userlar")],
             [KeyboardButton(text="⬅️ Orqaga")]
         ],
