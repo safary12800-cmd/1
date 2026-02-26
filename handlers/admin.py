@@ -14,7 +14,7 @@ async def admin_panel(msg: Message):
 
     await msg.answer(f'Admin panelga xush kelibsz',reply_markup=admin_panel_menu())
 
-
+# orqaga
 @router.message(F.text.in_({"⬅️ Orqaga", "Orqaga"}), RoleFilter("admin"))
 async def back_to_admin_menu(msg: Message):
     await msg.answer("Asosiy admin menyu", reply_markup=start_reply_admin())

@@ -131,3 +131,10 @@ class Database:
     async def get_products_admin(self):
         query = "SELECT * FROM products WHERE is_active=TRUE"
         return await self._pool().fetch(query)
+    async def get_products_admin_false(self):
+        query = "SELECT * FROM products WHERE is_active=FALSE"
+        return await self._pool().fetch(query)
+    
+    async def add_product(self,name,price,description):
+        query=""" INSERT INTO products(name,price,description) VALUES($1,$2,$3)"""
+        await self._pool().execute(query,name,int(price),description)
