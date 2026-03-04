@@ -29,5 +29,5 @@ async def add_product(msg:Message,state:FSMContext,db):
 
     data=await state.get_data()
     await db.add_product(data["name"],data["price"],data["description"])
-    await msg.answer("MAhsulot muvaffaqiyatli qoshildi")
+    await msg.answer("Mahsulot muvaffaqiyatli qoshildi")
     await state.clear()

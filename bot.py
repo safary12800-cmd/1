@@ -34,3 +34,4 @@ async def main():
 if __name__ == "__main__":
     print("Bot ishga tushmoqda...")
     asyncio.run(main())
+    
